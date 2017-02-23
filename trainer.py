@@ -10,7 +10,7 @@ class Trainer():
     loss = []
     for e in range(epoch):
       l = self.train_one_epoch(x, y, bs).data
-      if e % 10 == 0:
+      if e % (epoch // 50) == 0:
         if display: print("epoch:%5d, loss:%10.3f" % (e, l))
         loss.append(l)
     return loss

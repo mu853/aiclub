@@ -16,12 +16,13 @@ def create_model(dim, model_file = None, state_file = None):
   
 class MyModel(Chain):
   def __init__(self, dim):
+
     super(MyModel, self).__init__(
       l1=L.Linear(dim[0], dim[1]),
       l2=L.Linear(dim[1], dim[2]),
       l3=L.Linear(dim[2], dim[3]),
       l4=L.Linear(dim[3], dim[4]),
-      bn=L.BatchNormalization(dim[1]),
+      bn1=L.BatchNormalization(dim[1]),
     )
 
   def __call__(self, x, t):
@@ -29,7 +30,7 @@ class MyModel(Chain):
     return F.mean_squared_error(bv, t)
 
   def fwd(self, x, train=False, ratio=0.2):
-    fv1 = F.dropout(F.sigmoid(self.bn(self.l1(x))), train=train, ratio=ratio)
+    fv1 = F.dropout(F.sigmoid(self.bn1(self.l1(x))), train=train, ratio=ratio)
     fv2 = F.dropout(F.sigmoid(self.l2(fv1)), train=train, ratio=ratio)
     fv3 = self.l3(fv2)
     fv4 = self.l4(fv3)

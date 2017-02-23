@@ -23,10 +23,10 @@ t_test  = t[ind[420:]]
 epoch = 2000
 min_dim = 5
 max_dim = x.shape[1]
-num_of_hidden_layers = 3
+num_of_layers = 4
 r_map = {}
-for i in range(10):
-  hidden_dim = np.random.randint(min_dim, max_dim, num_of_hidden_layers)
+for i in range(100):
+  hidden_dim = np.random.randint(min_dim, max_dim, num_of_layers - 1)
   dim = [x.shape[1]] + hidden_dim.tolist() + [1]
   print("dim:{}".format(dim))
   m, o = create_model(dim)
@@ -37,10 +37,10 @@ for i in range(10):
   ac = ((1 - abs(y - t_test) / t_test) * 100).mean()
   print("accuracy(avg): %3.1f" % ac)
   plt.plot(np.arange(len(loss)), loss)
-  r_map[",".join(map(str, hidden_dim))] = ac
+  r_map[",".join(map(str, dim))] = ac
 
 for k, v in sorted(r_map.items(), key=lambda x:x[1]):
-  print("acc: %3.1f, hidden: %s" % (v, k))
+  print("acc: %3.1f, dim: %s" % (v, k))
 
 plt.show()
 
