@@ -91,4 +91,5 @@ ENV/
 # My project
 *.csv
 bk/
+*.png
 
