@@ -25,8 +25,8 @@ class MyModel(Chain):
       bn1=L.BatchNormalization(dim[1]),
     )
 
-  def __call__(self, x, t):
-    bv = self.fwd(x)
+  def __call__(self, x, t, drop_ratio):
+    bv = self.fwd(x, ratio=drop_ratio)
     return F.mean_squared_error(bv, t)
 
   def fwd(self, x, train=False, ratio=0.2):

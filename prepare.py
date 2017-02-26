@@ -98,7 +98,8 @@ def read_data(datafile, typemap):
           #np.array(t).astype(np.int32).reshape(-1, 1)
           )
 
-filename = sys.argv[1]
-typemap = get_typemap(filename)
-data, t = read_data(filename, typemap)
+if __name__ == '__main__':
+  filename = sys.argv[1]
+  typemap = get_typemap(filename)
+  data, t = read_data(filename, typemap)
 

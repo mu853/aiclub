@@ -6,16 +6,16 @@ class Trainer():
     self.model = model
     self.optimizer = optimizer
 
-  def train(self, x, y, bs=10, epoch=5000, display=True):
+  def train(self, x, y, bs=10, epoch=5000, display=True, drop_ratio=0.2):
     loss = []
     for e in range(epoch):
-      l = self.train_one_epoch(x, y, bs).data
+      l = self.train_one_epoch(x, y, bs, drop_ratio=drop_ratio).data
       if e % (epoch // 50) == 0:
         if display: print("epoch:%5d, loss:%10.3f" % (e, l))
         loss.append(l)
     return loss
 
-  def train_one_epoch(self, x, y, bs):
+  def train_one_epoch(self, x, y, bs, drop_ratio):
     loss_total = None
     n = x.shape[0]
 
@@ -25,7 +25,7 @@ class Trainer():
       yv = Variable(y[ind[i:(i+bs) if (i+bs) < n else n]])
   
       self.model.zerograds()
-      loss = self.model(xv, yv)
+      loss = self.model(xv, yv, drop_ratio)
       loss.backward()
       self.optimizer.update()
   
