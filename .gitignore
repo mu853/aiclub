@@ -92,4 +92,7 @@ ENV/
 *.csv
 bk/
 *.png
+*.model
+*.state
+.*
 
