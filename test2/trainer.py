@@ -1,4 +1,5 @@
 import numpy as np
+import math
 from chainer import Variable
 
 class Trainer():
@@ -10,7 +11,7 @@ class Trainer():
     loss = []
     for e in range(epoch):
       l = self.train_one_epoch(x, y, bs, drop_ratio=drop_ratio).data
-      if e % (epoch // 50) == 0:
+      if e % 100 == 0:
         if display: print("epoch:%5d, loss:%10.3f" % (e, l))
         loss.append(l)
     return loss
@@ -29,6 +30,8 @@ class Trainer():
       loss.backward()
       self.optimizer.update()
   
+      #if math.isnan(loss.data): continue
+
       if loss_total is None:
         loss_total = loss
       else:
