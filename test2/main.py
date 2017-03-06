@@ -38,7 +38,7 @@ else:
       x_train, t_train,
       bs=200,
       display=True,
-      epoch=1000,
+      epoch=100000,
       drop_ratio=0.30
       )
 
