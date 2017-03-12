@@ -24,3 +24,9 @@ for r in np.hstack([t, y, y - t, 1 - abs((y - t) / t)]):
 
 ac = (1 - abs(y - t) / t).mean()
 print("total acc = %.3f" % ac)
+
+d = 1 - abs(y - t) / t
+d.sort(axis=0)
+ac = d[:50].mean()
+print("total acc = %.3f" % ac)
+

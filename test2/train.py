@@ -22,11 +22,13 @@ if len(sys.argv) >= 4:
   serializers.load_npz(model_file_name, model)
   serializers.load_npz(state_file_name, optimizer)
 
+# use 2 of 3 for train, 1 of 3 for test
 ind = np.random.permutation(x.shape[0])
-x_train = x[ind[:420]]
-x_test  = x[ind[420:]]
-t_train = t[ind[:420]]
-t_test  = t[ind[420:]]
+ind_offset = len(ind) * 2 // 3
+x_train = x[ind[:ind_offset]]
+x_test  = x[ind[ind_offset:]]
+t_train = t[ind[:ind_offset]]
+t_test  = t[ind[ind_offset:]]
 
 tr = Trainer(model, optimizer)
 loss = tr.train(
